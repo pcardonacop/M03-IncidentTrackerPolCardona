@@ -37,18 +37,23 @@ jobs:
 
       - name: Install Firefox and geckodriver
         run: |
+          sudo add-apt-repository ppa:mozillateam/ppa -y
           sudo apt-get update
           sudo apt-get install -y firefox
           wget https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz
           tar -xvzf geckodriver*.tar.gz
           chmod +x geckodriver
           sudo mv geckodriver /usr/local/bin/
+          # Verificar instal·lacions
+          firefox --version
+          geckodriver --version
 
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: False
           ALLOWED_HOSTS: localhost
+          FIREFOX_BINARY: /usr/bin/firefox
           DATABASE_URL: postgres://postgres:1234@localhost:5432/incidentdb
         run: |
           python manage.py test core.tests_selenium
