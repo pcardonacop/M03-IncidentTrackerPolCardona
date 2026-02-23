@@ -1,0 +1,74 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$AAKrlqTZPUjuXsEK0aIFW5$mEVr1e5tyb3dO63SwbAHNAYXdhKCiOba0LvmcjXeYT0=",
+        "last_login": "2026-02-17T19:47:54.385Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "example@alumnat.copernic.cat",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-02-17T16:44:06.590Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$xGl4BtsHtC88cYSAFoZIwU$EU4E3hLtGOIX+9AiGg9Z+vEer5rntsG3WRbiDIfOdpk=",
+        "last_login": "2026-02-17T19:46:45.218Z",
+        "is_superuser": false,
+        "username": "analista1",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-17T16:44:20.977Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$u8Qb9JUaRsPbRnJq6knp0W$uwxJP6WLlusi1y5m5rmlT2NyiCY6689suntURkK34IE=",
+        "last_login": "2026-02-17T19:27:37.211Z",
+        "is_superuser": false,
+        "username": "analista2",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-02-17T16:44:21.383Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "1234",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "hacker_local",
+        "first_name": "Hacker",
+        "last_name": "Local",
+        "email": "hacker@local.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-17T17:04:39.390Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

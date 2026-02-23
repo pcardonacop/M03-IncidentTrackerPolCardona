@@ -15,8 +15,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from core.views import busqueda_vulnerable
+from core.views import update_email_vulnerable
+from core.views import ver_incidente
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    
+    path('buscar/', busqueda_vulnerable),
+    path('update-email/', update_email_vulnerable),
+
+    # <int:id> captura el número que pongas en la URL y se lo pasa a la vista
+    path('incidente/<int:id>/', ver_incidente),
 ]
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('buscar/', busqueda_vulnerable),
+    path('update-email/', update_email_vulnerable),
+    path('incidente/<int:id>/', ver_incidente),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
