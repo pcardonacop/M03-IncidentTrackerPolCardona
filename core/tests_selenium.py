@@ -14,9 +14,6 @@ class SecurityRegressionTests(StaticLiveServerTestCase):
         super().setUpClass()
         options = Options()
         options.add_argument('--headless')
-        
-        options.binary_location = '/usr/bin/firefox'
-        
         cls.selenium = WebDriver(options=options)
         cls.selenium.implicitly_wait(10)
 
