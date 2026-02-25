@@ -34,18 +34,18 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # Instal·lar Firefox tradicional (no snap)
+      # Instal·lar Firefox tradicional (des de Mozilla)
       - name: Install Firefox (traditional)
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget bzip2
-          wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=ca"
-          tar -xjf firefox.tar.bz2
+          sudo apt-get install -y wget xz-utils
+          wget -O firefox.tar.xz "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=ca"
+          tar -xf firefox.tar.xz
           sudo mv firefox /opt/
           sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox
 
       # Instal·lar geckodriver (versió fixa)
-      - name: Install Geckodriver manually
+      - name: Install Geckodriver
         run: |
           GECKODRIVER_VERSION="v0.35.0"
           wget "https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz"
@@ -62,8 +62,6 @@ jobs:
           echo "=== Geckodriver ==="
           which geckodriver
           geckodriver --version
-          echo "=== PATH ==="
-          echo $PATH
 
       # Executar tests
       - name: Run tests
