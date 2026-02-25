@@ -54,7 +54,7 @@ jobs:
           which geckodriver
           geckodriver --version
 
-            - name: Check Firefox and geckodriver
+      - name: Check Firefox and geckodriver
         run: |
           echo "=== Comprovant Firefox ==="
           if ! command -v firefox &> /dev/null; then
