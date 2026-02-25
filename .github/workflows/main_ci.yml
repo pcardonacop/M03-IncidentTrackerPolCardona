@@ -54,12 +54,30 @@ jobs:
           which geckodriver
           geckodriver --version
 
+            - name: Check Firefox and geckodriver
+        run: |
+          echo "=== Comprovant Firefox ==="
+          if ! command -v firefox &> /dev/null; then
+            echo "Firefox no està instal·lat"
+            exit 1
+          else
+            echo "Firefox instal·lat a: $(which firefox)"
+            firefox --version
+          fi
+          echo "=== Comprovant geckodriver ==="
+          if ! command -v geckodriver &> /dev/null; then
+            echo "Geckodriver no està instal·lat"
+            exit 1
+          else
+            echo "Geckodriver instal·lat a: $(which geckodriver)"
+            geckodriver --version
+          fi
+
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: False
           ALLOWED_HOSTS: localhost
-          FIREFOX_BINARY: /usr/bin/firefox
           DATABASE_URL: postgres://postgres:1234@localhost:5432/incidentdb
         run: |
           python manage.py test core.tests_selenium

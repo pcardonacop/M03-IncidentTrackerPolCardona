@@ -14,6 +14,11 @@ class SecurityRegressionTests(StaticLiveServerTestCase):
         super().setUpClass()
         options = Options()
         options.add_argument('--headless')
+        
+        firefox_bin = os.environ.get('FIREFOX_BINARY')
+        if firefox_bin:
+            options.binary_location = firefox_bin
+
         cls.selenium = WebDriver(options=options)
         cls.selenium.implicitly_wait(10)
 
