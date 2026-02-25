@@ -34,11 +34,17 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Install Firefox
+      # Instal·lar Firefox tradicional (no snap)
+      - name: Install Firefox (traditional)
         run: |
           sudo apt-get update
-          sudo apt-get install -y firefox
+          sudo apt-get install -y wget bzip2
+          wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=ca"
+          tar -xjf firefox.tar.bz2
+          sudo mv firefox /opt/
+          sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox
 
+      # Instal·lar geckodriver (versió fixa)
       - name: Install Geckodriver manually
         run: |
           GECKODRIVER_VERSION="v0.35.0"
@@ -47,44 +53,25 @@ jobs:
           chmod +x geckodriver
           sudo mv geckodriver /usr/local/bin/
 
-      - name: Verify Firefox and geckodriver
+      # Verificar instal·lacions
+      - name: Verify installations
         run: |
+          echo "=== Firefox ==="
           which firefox
           firefox --version
+          echo "=== Geckodriver ==="
           which geckodriver
           geckodriver --version
+          echo "=== PATH ==="
+          echo $PATH
 
-      - name: Check Firefox and geckodriver
-        run: |
-          echo "=== Comprovant Firefox ==="
-          if ! command -v firefox &> /dev/null; then
-            echo "Firefox no està instal·lat"
-            exit 1
-          else
-            echo "Firefox instal·lat a: $(which firefox)"
-            firefox --version
-          fi
-          echo "=== Comprovant geckodriver ==="
-          if ! command -v geckodriver &> /dev/null; then
-            echo "Geckodriver no està instal·lat"
-            exit 1
-          else
-            echo "Geckodriver instal·lat a: $(which geckodriver)"
-            geckodriver --version
-          fi
-
-      - name: Debug environment
-        run: |
-          echo "PATH: $PATH"
-          echo "Firefox location: $(which firefox)"
-          echo "Geckodriver location: $(which geckodriver)"
-
+      # Executar tests
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: False
           ALLOWED_HOSTS: localhost
           DATABASE_URL: postgres://postgres:1234@localhost:5432/incidentdb
-          FIREFOX_BINARY: /usr/bin/firefox
+          FIREFOX_BINARY: /usr/local/bin/firefox
         run: |
           python manage.py test core.tests_selenium
